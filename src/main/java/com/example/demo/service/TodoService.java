@@ -38,4 +38,14 @@ public class TodoService {
 	public List<TodoEntity> retrieve(String userId){
 		return repository.findByUserId(userId);
 	}
+	
+	public Optional<TodoEntity> update(TodoEntity entity){
+		validate(entity);
+		if (repository.existsById(entity.getId())) {
+			repository.save(entity);
+		} else {
+			throw new RuntimeException("unknown id");
+		}
+		return repository.findById(entity.getId());
+	}
 }
