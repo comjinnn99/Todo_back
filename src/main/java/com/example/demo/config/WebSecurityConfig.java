@@ -11,7 +11,7 @@ import com.example.demo.security.JwtAuthenticationFilter;
 
 import lombok.extern.slf4j.Slf4j;
 
-@EnableWebSecurity
+//@EnableWebSecurity
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
