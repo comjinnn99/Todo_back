@@ -34,4 +34,8 @@ public class TodoService {
 		
 		return repository.findById(entity.getId());
 	}
+	
+	public List<TodoEntity> retrieve(String userId){
+		return repository.findByUserId(userId);
+	}
 }
