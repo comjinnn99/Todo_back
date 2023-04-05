@@ -1,6 +1,5 @@
 package com.example.demo.dto;
 
-import com.example.demo.dto.TodoDTO;
 import com.example.demo.model.TodoEntity;
 
 import lombok.AllArgsConstructor;

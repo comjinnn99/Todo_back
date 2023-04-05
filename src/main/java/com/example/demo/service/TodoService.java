@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,34 +27,36 @@ public class TodoService {
 		}
 	}
 	
-	public Optional<TodoEntity> create(TodoEntity entity) {
+	public List<TodoEntity> create(TodoEntity entity) {
 		validate(entity);
 		repository.save(entity);
 		
-		return repository.findById(entity.getId());
+//		return repository.findById(entity.getId());
+		return repository.findByUserId(entity.getUserId());
 	}
 	
 	public List<TodoEntity> retrieve(String userId){
 		return repository.findByUserId(userId);
 	}
 	
-	public Optional<TodoEntity> update(TodoEntity entity){
+	public List<TodoEntity> update(TodoEntity entity){
 		validate(entity);
 		if (repository.existsById(entity.getId())) {
 			repository.save(entity);
 		} else {
 			throw new RuntimeException("unknown id");
 		}
-		return repository.findById(entity.getId());
+//		return repository.findById(entity.getId());
+		return repository.findByUserId(entity.getUserId());
 	}
 	
-	public String delete(String id){
-		if (repository.existsById(id)) {
-			repository.deleteById(id);
+	public List<TodoEntity> delete(TodoEntity entity){
+		if (repository.existsById(entity.getId())) {
+			repository.deleteById(entity.getId());
 		} else {
 			throw new RuntimeException("id does not exist");
 		}
 
-		return "deleted";
+		return repository.findByUserId(entity.getUserId());
 	}
 }
