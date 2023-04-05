@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.UserEntity;
@@ -20,7 +21,6 @@ public class UserService {
 		}
 		
 		String email = userEntity.getEmail();
-		System.out.println("userservice>>> userentity: "+userEntity);
 		
 		if (userRepository.existsByEmail(email)) {
 			log.warn("email already exists {}", email);
@@ -30,7 +30,12 @@ public class UserService {
 		return userRepository.save(userEntity);
 	}
 	
-	public UserEntity getByCredentials(String email, String password) {
-		return userRepository.findByEmailAndPassword(email, password);
+	public UserEntity getByCredentials(String email, String password, PasswordEncoder encoder) {
+		UserEntity originalUser = userRepository.findByEmail(email);
+		if(originalUser != null && encoder.matches(password, originalUser.getPassword())) {
+			return originalUser;
+		}
+		
+		return null;
 	}
 }
