@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 		// http 요청 헤더를 파싱해 bearer 토큰을 리턴
 		String bearerToken = request.getHeader("Authorization");
 		
-		if (org.springframework.util.StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer")) {
+		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer")) {
 			return bearerToken.substring(7);
 		}
 		return null;
