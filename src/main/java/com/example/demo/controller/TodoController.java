@@ -24,10 +24,10 @@ import com.example.demo.service.TodoService;
 
 import lombok.extern.slf4j.Slf4j;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("todo")
 @Slf4j
+@CrossOrigin(origins = "*")
 public class TodoController {
 	@Autowired
 	private TodoService service;
@@ -37,7 +37,7 @@ public class TodoController {
 			@AuthenticationPrincipal String userId,
 			@RequestBody TodoDTO dto){
 		try {
-			userId = "temporary-userId"; //임시 유저 아이디
+//			userId = "temporary-userId"; //임시 유저 아이디
 			TodoEntity entity = TodoDTO.toEntity(dto);
 			
 			entity.setId(null);
@@ -60,7 +60,7 @@ public class TodoController {
 	
 	@GetMapping
 	public ResponseEntity<?> retrieveTodo(@AuthenticationPrincipal String userId){
-		userId = "temporary-userId"; //임시 유저 아이디
+//		userId = "temporary-userId"; //임시 유저 아이디
 		List<TodoEntity> entities = service.retrieve(userId);
 		List<TodoDTO> dtos = entities.stream().map(TodoDTO::new).collect(Collectors.toList());
 		ResponseDTO<TodoDTO> response = ResponseDTO.<TodoDTO>builder()
@@ -74,7 +74,7 @@ public class TodoController {
 			@AuthenticationPrincipal String userId,
 			@RequestBody TodoDTO dto){
 		try {
-			userId = "temporary-userId"; //임시 유저 아이디
+//			userId = "temporary-userId"; //임시 유저 아이디
 			TodoEntity entity = TodoDTO.toEntity(dto);
 			entity.setUserId(userId);
 			
@@ -97,7 +97,7 @@ public class TodoController {
 			@AuthenticationPrincipal String userId,
 			@RequestBody TodoDTO dto) {
 		try {
-			userId = "temporary-userId"; //임시 유저 아이디
+//			userId = "temporary-userId"; //임시 유저 아이디
 			TodoEntity entity = TodoDTO.toEntity(dto);
 			entity.setUserId(userId);
 			
